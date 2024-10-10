@@ -91,22 +91,42 @@ const runComparison = () => {
 };
 
 const movieTemplate = (movieDetail) => {
-  const dollars = parseInt(
-    movieDetail.BoxOffice.replace(/\$/g, "").replace(/,/g, "")
-  );
+  // const dollars = parseInt(
+  //   movieDetail.BoxOffice.replace(/\$/g, "").replace(/,/g, "")
+  // );
+  // console.log(dollars);
+
+  const dollars = movieDetail.BoxOffice
+    ? parseInt(movieDetail.BoxOffice.replace(/\$/g, "").replace(/,/g, ""))
+    : 0;
+
   const metascore = parseInt(movieDetail.Metascore);
   const imdbRating = parseFloat(movieDetail.imdbRating);
-  const imdbVotes = parseInt(movieDetail.imdbVotes.replace(/,/g, ""));
+  // const imdbVotes = parseInt(movieDetail.imdbVotes.replace(/,/g, ""));
+  const imdbVotes = movieDetail.imdbVotes
+    ? parseInt(movieDetail.imdbVotes.replace(/,/g, ""))
+    : 0;
 
-  const awards = movieDetail.Awards.split(" ").reduce((prev, word) => {
-    const value = parseInt(word);
+  // const awards = movieDetail.Awards.split(" ").reduce((prev, word) => {
+  //   const value = parseInt(word);
 
-    if (isNaN(value)) {
-      return prev;
-    } else {
-      return prev + value;
-    }
-  }, 0);
+  //   if (isNaN(value)) {
+  //     return prev;
+  //   } else {
+  //     return prev + value;
+  //   }
+  // }, 0);
+
+  const awards = movieDetail.Awards
+    ? movieDetail.Awards.split(" ").reduce((prev, word) => {
+        const value = parseInt(word);
+        if (isNaN(value)) {
+          return prev;
+        } else {
+          return prev + value;
+        }
+      }, 0)
+    : 0;
 
   return `
     <article class="media">
